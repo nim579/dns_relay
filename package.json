@@ -1,0 +1,29 @@
+{
+  "name": "dns_relay",
+  "version": "1.0.0",
+  "description": "DNS relay for UDP and DoH requests",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nim579/dns_relay.git"
+  },
+  "keywords": [
+    "dns",
+    "doh"
+  ],
+  "author": "Nick Iv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nim579/dns_relay/issues"
+  },
+  "homepage": "https://github.com/nim579/dns_relay#readme",
+  "dependencies": {
+    "dns-packet": "^5.3.0",
+    "got": "^11.8.2"
+  }
+}
