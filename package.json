@@ -1,12 +1,15 @@
 {
-  "name": "dns_relay",
+  "name": "dns-relay",
   "version": "1.0.0",
   "description": "DNS relay for UDP and DoH requests",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "start": "node start.js"
+  },
+  "bin": {
+    "dns-relay": "./bin/dns-relay.js"
   },
   "repository": {
     "type": "git",

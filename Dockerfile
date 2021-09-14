@@ -12,4 +12,4 @@ RUN npm ci
 
 COPY . .
 
-ENTRYPOINT ['npm', 'start']
+ENTRYPOINT ["npm", "start"]
