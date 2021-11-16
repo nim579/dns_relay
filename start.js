@@ -1,5 +1,4 @@
-import udp from './lib/udp.js';
-import doh from './lib/doh.js';
+import { UDP, DoH } from './index.js';
 
-udp();
-doh();
+UDP();
+DoH();

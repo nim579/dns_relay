@@ -7,22 +7,22 @@ DNS relay for UDP and DoH requests
 ### In code
 
 ``` js
-import { udp, doh } from 'dns-relay';
+import { UDP, DoH } from 'dns-relay';
 
-udp(53535, 'cloudflare');
-doh(80, '127.0.0.1', 'google');
+UDP(53535, 'cloudflare');
+DoH(80, '127.0.0.1', 'google');
 ```
 OR
 ``` js
 const dnsRelay = require('dns-relay');
 
-dnsRelay.udp(53535, 'cloudflare');
-dnsRelay.doh(80, '127.0.0.1', 'google');
+dnsRelay.UDP(53535, 'cloudflare');
+dnsRelay.DoH(80, '127.0.0.1', 'google');
 ```
 
 **Methods:**
-* **udp(port[, provider])** — start UDP DNS server
-* **doh(port[, host[, provider]])** — start DoH HTTP (**not secure!**) server
+* `UDP(port[, provider[, log_level]])` — start UDP DNS server
+* `DoH(port[, host[, provider[, log_level]]])` — start DoH HTTP (**not secure!**) server
 
 Or use environment variables (see list below).
 

@@ -2,11 +2,20 @@
   "name": "dns-relay",
   "version": "1.0.0",
   "description": "DNS relay for UDP and DoH requests",
-  "main": "index.js",
   "type": "module",
+  "main": "./dist/cjs/dns-relay.js",
+  "module": "./dist/dns-relay.js",
+  "exports": {
+    ".": {
+      "require":  "./dist/cjs/dns-relay.js",
+      "default": "./dist/dns-relay.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node start.js"
+    "start": "node start.js",
+    "build": "rm -rf dist/* && rollup -c",
+    "prepublish": "npm run build"
   },
   "bin": {
     "dns-relay": "./bin/dns-relay.js"
@@ -16,8 +25,10 @@
     "url": "git+https://github.com/nim579/dns_relay.git"
   },
   "keywords": [
-    "dns",
-    "doh"
+    "DNS",
+    "DoH",
+    "DNS-over-HTTPS",
+    "UDP"
   ],
   "author": "Nick Iv",
   "license": "MIT",
@@ -28,5 +39,8 @@
   "dependencies": {
     "dns-packet": "^5.3.0",
     "got": "^11.8.2"
+  },
+  "devDependencies": {
+    "rollup": "^2.60.0"
   }
 }

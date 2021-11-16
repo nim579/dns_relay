@@ -1,4 +1,5 @@
-import udp from './lib/udp.js';
-import doh from './lib/doh.js';
+import UDP from './lib/udp.js';
+import DoH from './lib/doh.js';
 
-export default { udp, doh };
+export { UDP, DoH };
+export default { UDP, DoH };
