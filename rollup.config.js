@@ -1,17 +1,6 @@
 import pkg from './package.json';
 
-// export default {
-// 	input: './index.js',
-// 	output: [{
-// 		file: './dist/dns-relay.es.js',
-// 		format: 'es',
-// 		sourcemap: true
-// 	}, {
-// 		file: './dist/dns-relay.cjs.js',
-// 		format: 'cjs',
-// 		sourcemap: true
-// 	}]
-// };
+const dependencies = Object.keys(pkg.dependencies);
 
 const banner = `/*
   @license
@@ -19,6 +8,15 @@ const banner = `/*
 	${pkg.homepage}
 	Released under the ${pkg.license} License.
 */\n`;
+
+export function emitCommonPackageFile() {
+	return {
+		generateBundle() {
+			this.emitFile({ fileName: 'package.json', source: `{"type":"commonjs"}`, type: 'asset' });
+		},
+		name: 'emit-common-package-file'
+	};
+}
 
 const cjsOutput = {
   banner,
@@ -30,7 +28,6 @@ const cjsOutput = {
   exports: 'auto',
   generatedCode: 'es2015',
   externalLiveBindings: false,
-  manualChunks: { rollup: ['./index.js'] },
   sourcemap: true
 }
 
@@ -42,18 +39,20 @@ const esmOutput = {
   sourcemap: false
 }
 
-
-export default {
+const config = {
   external: [
-    'dns-packet',
-    'got',
+    ...dependencies,
+    'fs',
+    'path',
+    'dgram',
     'http',
-    'dgram'
+    'https'
   ],
+
   input: {
     'dns-relay': './index.js'
   },
-  output: [cjsOutput, esmOutput],
+
   treeshake: {
     moduleSideEffects: false,
     propertyReadSideEffects: false,
@@ -61,29 +60,13 @@ export default {
   }
 }
 
-// {
-//   banner,
-//   dir: 'dist',
-//   entryFileNames: '[name].es.js',
-//   chunkFileNames: '[name].js',
-//   format: 'es',
-//   sourcemap: true
-// }
-
-// chunkFileNames: 'shared/[name].js',
-//       dir: 'dist',
-//       entryFileNames: '[name]',
-//       // TODO Only loadConfigFile is using default exports mode; this should be changed in Rollup@3
-//       exports: 'auto',
-//       externalLiveBindings: false,
-//       format: 'cjs',
-//       freeze: false,
-//       generatedCode: 'es2015',
-//       interop: id => {
-//         if (id === 'fsevents') {
-//           return 'defaultOnly';
-//         }
-//         return 'default';
-//       },
-//       manualChunks: { rollup: ['src/node-entry.ts'] },
-//       sourcemap: true
+export default [
+  {
+    ...config,
+    output: cjsOutput,
+    plugins: [ emitCommonPackageFile() ]
+  }, {
+    ...config,
+    output: esmOutput,
+  }
+]
